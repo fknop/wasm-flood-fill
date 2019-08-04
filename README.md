@@ -27,3 +27,6 @@ const data = wasm.flood_fill(
 
 context.putImageData(new ImageData(data, width, height), 0, 0);
 ```
+
+Benchmarks between an equivalent function implemented in JavaScript shows an improvement in speed of 3 to 5 times for the wasm version.
+One flood fill takes ~50-60ms in wasm and ~230ms in JS for a 800x660 canvas.

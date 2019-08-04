@@ -42,7 +42,7 @@ pub fn flood_fill(
 
   let (tr, tg, tb, _ta) = get_pixel(&data, width, start_x, start_y);
 
-  if match_colors((r, g, b), (tr, tg, tb)) {
+  if match_colors(r, g, b, tr, tg, tb) {
     return Ok(data);
   }
 
@@ -59,11 +59,11 @@ pub fn flood_fill(
     let (cr, cg, cb, _ca) = get_pixel(&data, width, x, y);
 
 
-    if match_colors((r, g, b), (cr, cg, cb)) {
+    if match_colors(r, g, b, cr, cg, cb) {
       continue;
     }
 
-    let match_color = match_tolerance((tr, tg, tb), (cr, cg, cb), tolerance);
+    let match_color = match_tolerance(tr, tg, tb, cr, cg, cb, tolerance);
 
     if match_color {
       set_pixel(&mut data, width, x, y, r, g, b, 255);
@@ -102,11 +102,11 @@ pub fn get_pixel(data: &Vec<u8>, width: u32, x: u32, y: u32) -> (u8, u8, u8, u8)
   return (data[offset], data[offset + 1], data[offset + 2], data[offset + 3]);
 }
 
-pub fn match_colors((r1, g1, b1): (u8, u8, u8), (r2, g2, b2): (u8, u8, u8)) -> bool {
+pub fn match_colors(r1: u8, g1: u8, b1: u8, r2: u8, g2: u8, b2: u8) -> bool {
   return r1 == r2 && g1 == g2 && b1 == b2;
 }
 
-pub fn match_tolerance((r1, g1, b1): (u8, u8, u8), (r2, g2, b2): (u8, u8, u8), tolerance: u8) -> bool {
+pub fn match_tolerance(r1: u8, g1: u8, b1: u8, r2: u8, g2: u8, b2: u8, tolerance: u8) -> bool {
   let r = if r1 > r2 { r1 - r2 } else { r2 - r1 };
   let g = if g1 > g2 { g1 - g2 } else { g2 - g1 };
   let b = if b1 > b2 { b1 - b2 } else { b2 - b1 };
