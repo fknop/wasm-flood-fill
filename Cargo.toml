@@ -1,7 +1,10 @@
 [package]
 name = "wasm-flood-fill"
-version = "0.1.0"
-authors = ["Florian Knop <florian_knop@hotmail.com>"]
+version = "1.0.0"
+authors = ["Florian Knop"]
+repository = "https://github.com/fknop/wasm-flood-fill"
+description = "Implementation of a flood-fill canvas algorithm in Rust for WebAssembly"
+license = "MIT"
 edition = "2018"
 
 [lib]
