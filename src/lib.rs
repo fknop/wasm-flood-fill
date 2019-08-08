@@ -33,7 +33,8 @@ pub fn flood_fill(
   r: u8,
   g: u8,
   b: u8,
-  tolerance: u8
+  tolerance: u8,
+  tolerance_fill: u8
 ) -> Result<Clamped<Vec<u8>>, JsValue> {
 
   let canvas = ctx.canvas().unwrap();
@@ -67,20 +68,22 @@ pub fn flood_fill(
 
     if match_color {
       set_pixel(&mut data, width, x, y, r, g, b, 255);
-      stack.push(x + 1);
-      stack.push(y);
 
-      if x > 0 {
-        stack.push(x - 1);
+      if match_tolerance(tr, tg, tb, cr, cg, cb, tolerance_fill) {
+        stack.push(x + 1);
         stack.push(y);
-      }
+        if x > 0 {
+          stack.push(x - 1);
+          stack.push(y);
+        }
 
-      stack.push(x);
-      stack.push(y + 1);
-     
-      if y > 0 {
         stack.push(x);
-        stack.push(y - 1);
+        stack.push(y + 1);
+      
+        if y > 0 {
+          stack.push(x);
+          stack.push(y - 1);
+        }
       }
     }
   }

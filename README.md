@@ -22,7 +22,8 @@ const data = wasm.flood_fill(
   imageData.data, 
   Math.round(startX), Math.round(startY), // Important that it is rounded before passing it to wasm
   r, g, b,  
-  50 // tolerance (0-255 range)
+  200, // color tolerance
+  100  // Tolerance to keep filling (<= tolerance)
 );
 
 context.putImageData(new ImageData(data, width, height), 0, 0);
